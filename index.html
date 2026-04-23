@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anam Fatima — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f4f7ff;
+    --blue-deep: #0a1628;
+    --blue-mid: #1a3a6e;
+    --blue-bright: #2563eb;
+    --blue-light: #dbeafe;
+    --blue-pale: #eff6ff;
+    --blue-accent: #60a5fa;
+    --blue-muted: #93c5fd;
+    --text-dark: #0f172a;
+    --text-mid: #475569;
+    --text-light: #94a3b8;
+    --border: #bfdbfe;
+    --card-bg: #f8faff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--text-dark);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--white); }
+  ::-webkit-scrollbar-thumb { background: var(--blue-bright); border-radius: 4px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3.5rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--blue-mid);
+    text-decoration: none;
+  }
+  .nav-brand span { color: var(--blue-bright); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 2px;
+    background: var(--blue-bright);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--blue-bright); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding-top: 72px;
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 60%, #1e4d9b 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96,165,250,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -15%; left: -8%;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 4rem;
+    align-items: center;
+    padding: 5rem 3.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(96,165,250,0.2);
+    border: 1px solid rgba(96,165,250,0.4);
+    color: var(--blue-muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue-accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--blue-accent);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+
+  .btn-primary {
+    background: var(--blue-bright);
+    color: white;
+    padding: 0.75rem 1.8rem;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.35); }
+
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    padding: 0.75rem 1.8rem;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+
+  /* PHOTO CARD */
+  .hero-photo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .photo-frame {
+    width: 280px;
+    height: 320px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.07);
+    border: 2px dashed rgba(96,165,250,0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .photo-frame:hover { border-color: var(--blue-accent); background: rgba(255,255,255,0.12); }
+
+  .photo-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    display: none;
+  }
+
+  .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .photo-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(96,165,250,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .photo-placeholder p { color: rgba(255,255,255,0.5); font-size: 12px; line-height: 1.6; }
+  .photo-placeholder strong { color: var(--blue-accent); font-size: 13px; display: block; margin-bottom: 0.2rem; }
+
+  #photo-upload { display: none; }
+
+  .upload-btn {
+    background: rgba(37,99,235,0.3);
+    border: 1px solid rgba(96,165,250,0.5);
+    color: var(--blue-accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Syne', sans-serif;
+  }
+  .upload-btn:hover { background: rgba(37,99,235,0.5); }
+
+  .photo-hint { color: rgba(255,255,255,0.35); font-size: 11px; text-align: center; }
+
+  /* STATS */
+  .stats-strip {
+    background: var(--blue-pale);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 3.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .stat-item {
+    flex: 1;
+    max-width: 220px;
+    text-align: center;
+    padding: 0 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--blue-bright);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+
+  /* SECTIONS */
+  section { padding: 5.5rem 3.5rem; }
+  section:nth-child(even) { background: var(--off-white); }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    background: var(--blue-light);
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--blue-deep);
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  /* EXPERIENCE */
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .exp-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue-bright), var(--blue-accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .exp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(37,99,235,0.12); }
+  .exp-card:hover::before { transform: scaleX(1); }
+
+  .exp-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+  .exp-org { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 0.2rem; }
+  .exp-role { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--blue-deep); line-height: 1.2; }
+  .exp-date { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: var(--text-light); background: var(--blue-pale); padding: 0.3rem 0.7rem; border-radius: 100px; white-space: nowrap; }
+  .exp-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+
+  .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .exp-list li { font-size: 12.5px; color: var(--text-mid); padding-left: 1.2rem; position: relative; line-height: 1.6; }
+  .exp-list li::before { content: '▸'; position: absolute; left: 0; color: var(--blue-accent); font-size: 10px; top: 3px; }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  .edu-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .edu-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue-bright), var(--blue-accent)); }
+  .edu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(37,99,235,0.1); }
+
+  .edu-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 22px; }
+  .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 0.4rem; line-height: 1.3; }
+  .edu-inst { font-size: 11px; color: var(--text-mid); margin-bottom: 0.5rem; }
+  .edu-score { display: inline-block; background: var(--blue-light); color: var(--blue-bright); font-size: 11px; font-weight: 700; letter-spacing: 0.05em; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 0.3rem; }
+  .edu-year { font-size: 11px; color: var(--text-light); }
+
+  /* AWARDS */
+  .awards-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+  .award-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem 2rem;
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .award-card:hover { transform: translateX(6px); box-shadow: 0 6px 20px rgba(37,99,235,0.1); }
+
+  .award-icon { width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, var(--blue-bright), var(--blue-accent)); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .award-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 0.2rem; }
+  .award-desc { font-size: 12px; color: var(--text-mid); }
+  .award-year { font-size: 11px; font-weight: 700; color: var(--blue-bright); background: var(--blue-light); padding: 0.35rem 0.9rem; border-radius: 100px; white-space: nowrap; }
+
+  /* SKILLS */
+  .skills-section { background: var(--blue-deep) !important; }
+  .skills-section .section-tag { background: rgba(96,165,250,0.2); color: var(--blue-accent); }
+  .skills-section .section-title { color: var(--white); }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+
+  .skill-chip {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.25s;
+  }
+  .skill-chip:hover { background: rgba(37,99,235,0.25); border-color: var(--blue-accent); transform: translateY(-2px); }
+  .skill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-accent); flex-shrink: 0; }
+  .skill-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); }
+
+  /* VOLUNTEER */
+  .vol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .vol-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.2rem; transition: transform 0.3s, box-shadow 0.3s; }
+  .vol-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(37,99,235,0.1); }
+  .vol-role { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 0.3rem; }
+  .vol-org { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 1rem; }
+
+  .vol-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .vol-list li { font-size: 12.5px; color: var(--text-mid); padding-left: 1.2rem; position: relative; line-height: 1.6; }
+  .vol-list li::before { content: '▸'; position: absolute; left: 0; color: var(--blue-accent); font-size: 10px; top: 3px; }
+
+  /* CERTS */
+  .certs-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  .cert-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; display: flex; align-items: flex-start; gap: 1rem; transition: transform 0.3s, box-shadow 0.3s; }
+  .cert-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(37,99,235,0.1); }
+  .cert-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cert-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 0.2rem; }
+  .cert-org { font-size: 11px; color: var(--blue-bright); font-weight: 600; letter-spacing: 0.05em; }
+  .cert-year { font-size: 11px; color: var(--text-light); margin-top: 0.2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-deep);
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(96,165,250,0.2);
+  }
+  .footer-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: var(--white); margin-bottom: 0.3rem; }
+  .footer-sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue-accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s, transform 0.65s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero-grid { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+    .hero-photo-area { order: -1; }
+    section { padding: 4rem 1.5rem; }
+    .exp-grid, .vol-grid { grid-template-columns: 1fr; }
+    .edu-grid, .certs-row { grid-template-columns: 1fr 1fr; }
+    .stats-strip { flex-wrap: wrap; padding: 2rem 1.5rem; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 1rem 0; min-width: 140px; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Anam<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">Available for Opportunities</div>
+      <h1 class="hero-name">Anam <span>Fatima</span></h1>
+      <p class="hero-tagline">
+        CS student at Namal University · Software Engineer Intern at Amrood Labs · Amal Academy Fellow selected from 4,500+ applicants. Building scalable web apps and driving social impact through technology.
+      </p>
+      <div class="hero-ctas">
+        <a href="mailto:anam985fatima@gmail.com" class="btn-primary">Get In Touch</a>
+        <a href="https://www.linkedin.com/in/anamf85" target="_blank" class="btn-secondary">View LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- PHOTO UPLOAD -->
+    <div class="hero-photo-area">
+      <div class="photo-frame" id="photoFrame" onclick="document.getElementById('photo-upload').click()">
+        <img id="previewImg" src="" alt="Anam Fatima"/>
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <div class="photo-icon">👤</div>
+          <div>
+            <strong>Upload Your Photo</strong>
+            <p>Click anywhere here to add your profile picture</p>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="photo-upload" accept="image/*"/>
+      <label for="photo-upload" class="upload-btn">Choose Photo</label>
+      <p class="photo-hint">JPG, PNG or WEBP · Max 5MB</p>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-num">3.59</div><div class="stat-label">GPA</div></div>
+  <div class="stat-item reveal"><div class="stat-num">89%</div><div class="stat-label">FSC Score</div></div>
+  <div class="stat-item reveal"><div class="stat-num">4500+</div><div class="stat-label">Applicants Beaten</div></div>
+  <div class="stat-item reveal"><div class="stat-num">80%</div><div class="stat-label">Engagement Uplift</div></div>
+  <div class="stat-item reveal"><div class="stat-num">3L+</div><div class="stat-label">PKR Funds Raised</div></div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <span class="section-tag">Professional Journey</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <div class="exp-top">
+          <div><div class="exp-org">Amal Academy · Lahore</div><div class="exp-role">Career-Prep Fellow</div></div>
+          <div class="exp-date">Aug 2025 – Present</div>
+        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-list">
+          <li>Selected from 4,500+ applicants through a highly competitive process showcasing leadership and problem-solving.</li>
+          <li>Raised funds for Akhuwat and Edhi Foundations, increasing community engagement by 80%.</li>
+          <li>Executed a cyberbullying awareness MEGA project educating 80–100 students, improving online safety awareness by 40%.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-top">
+          <div><div class="exp-org">Amrood Labs · Lahore</div><div class="exp-role">Software Engineer Intern</div></div>
+          <div class="exp-date">Jun – Sep 2025</div>
+        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-list">
+          <li>Built a full e-commerce app in Ruby on Rails with catalog, cart & authentication — improved coding efficiency by 30%.</li>
+          <li>Developing "Hostel Hub," a management platform targeting 40% reduction in manual allocation and fee tracking.</li>
+          <li>Self-learned Ruby on Rails in 3 weeks and applied it directly to production, reducing onboarding time by 50%.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-top">
+          <div><div class="exp-org">Namal University · Academic</div><div class="exp-role">Group Lead — Smart Billing App</div></div>
+          <div class="exp-date">Mar – May 2024</div>
+        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-list">
+          <li>Led design of a Figma-based billing app prototype covering onboarding, history, transaction, and notification screens.</li>
+          <li>Improved usability enabling 30% faster expense tracking for end users.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-top">
+          <div><div class="exp-org">Namal University</div><div class="exp-role">Teacher Assistant & Work Study</div></div>
+          <div class="exp-date">Ongoing</div>
+        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-list">
+          <li>Handled administrative work by managing course folders and departmental records.</li>
+          <li>Supervised and maintained the university Physics Lab.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <span class="section-tag">Academic Background</span>
+    <h2 class="section-title">Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-degree">BSc (Hons) Computer Science</div>
+        <div class="edu-inst">Namal University, Mianwali</div>
+        <div class="edu-score">GPA: 3.59 / 4.0</div>
+        <div class="edu-year">2023 – 2027</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">📚</div>
+        <div class="edu-degree">FSC Pre-Medical & Pre-Engineering</div>
+        <div class="edu-inst">Superior College, Mianwali</div>
+        <div class="edu-score">Score: 89%</div>
+        <div class="edu-year">2020 – 2022</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">🏅</div>
+        <div class="edu-degree">Full Merit-Based Scholarship</div>
+        <div class="edu-inst">Namal University, Mianwali</div>
+        <div class="edu-score">Academic Excellence</div>
+        <div class="edu-year">2023 – 2027</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <span class="section-tag">Recognition</span>
+    <h2 class="section-title">Awards & Honours</h2>
+    <div class="awards-grid">
+      <div class="award-card reveal">
+        <div class="award-icon">🏆</div>
+        <div><div class="award-name">Namal University Full Merit Scholarship</div><div class="award-desc">Awarded for outstanding academic performance in Computer Science.</div></div>
+        <div class="award-year">2023–2027</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🎖️</div>
+        <div><div class="award-name">Punjab Educational Endowment Fund (PEEF)</div><div class="award-desc">Awarded for achieving the highest scores in 8th grade and Matriculation Exams.</div></div>
+        <div class="award-year">2018–2022</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">⭐</div>
+        <div><div class="award-name">Amal Academy Fellow</div><div class="award-desc">Competitively selected from a pool of 4,500+ applicants across Pakistan.</div></div>
+        <div class="award-year">2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-inner">
+    <span class="section-tag">Technical Expertise</span>
+    <h2 class="section-title">Skills & Interests</h2>
+    <div class="skills-grid">
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Ruby on Rails</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">C++</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">C#</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Figma Design</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Web Development</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Artificial Intelligence</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Graphic Design</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Tech Management</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">English & Urdu</div></div>
+      <div class="skill-chip reveal"><div class="skill-dot"></div><div class="skill-name">Soft Skills</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+  <div class="section-inner">
+    <span class="section-tag">Giving Back</span>
+    <h2 class="section-title">Community & Volunteer</h2>
+    <div class="vol-grid">
+      <div class="vol-card reveal">
+        <div class="vol-role">Teacher & Co-Head</div>
+        <div class="vol-org">Namal Society for Social Impact</div>
+        <ul class="vol-list">
+          <li>Provided free education to underprivileged children in rural areas near Namal.</li>
+          <li>Supported core subject learning and helped bridge educational gaps through community-driven teaching.</li>
+        </ul>
+      </div>
+      <div class="vol-card reveal">
+        <div class="vol-role">Fund-Raising Campaign Lead</div>
+        <div class="vol-org">Akhuwat & Edhi Foundations</div>
+        <ul class="vol-list">
+          <li>Raised over ₨3 lac through targeted outreach and awareness campaigns.</li>
+          <li>Increased stakeholder engagement by 80% through strategic communications and calls to action.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-inner">
+    <span class="section-tag">Learning & Development</span>
+    <h2 class="section-title">Certifications</h2>
+    <div class="certs-row">
+      <div class="cert-card reveal">
+        <div class="cert-icon">🗣️</div>
+        <div><div class="cert-name">Soft Skills Course</div><div class="cert-org">HCC Foundation</div><div class="cert-year">2023</div></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">💻</div>
+        <div><div class="cert-name">C# Programming Course</div><div class="cert-org">HCC Foundation</div><div class="cert-year">2024</div></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🚀</div>
+        <div><div class="cert-name">Ruby on Rails</div><div class="cert-org">Self-Taught · Production Applied</div><div class="cert-year">2025</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-left">
+    <div class="footer-name">Anam Fatima</div>
+    <div class="footer-sub">anam985fatima@gmail.com · +92-326-712-4835 · Mianwali, Pakistan</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="mailto:anam985fatima@gmail.com">Email</a></li>
+    <li><a href="tel:+923267124835">Phone</a></li>
+    <li><a href="https://www.linkedin.com/in/anamf85" target="_blank">LinkedIn</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Photo upload
+  const input = document.getElementById('photo-upload');
+  const preview = document.getElementById('previewImg');
+  const placeholder = document.getElementById('photoPlaceholder');
+
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { alert('Please choose an image under 5MB.'); return; }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      preview.src = ev.target.result;
+      preview.style.display = 'block';
+      placeholder.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+</body>
+</html>
